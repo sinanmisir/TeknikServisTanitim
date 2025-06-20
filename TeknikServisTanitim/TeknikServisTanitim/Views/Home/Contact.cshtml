@@ -1,0 +1,373 @@
+﻿@{
+    ViewData["Title"] = "İletişim - TeknikServis Pro";
+}
+
+<style>
+    .contact-hero {
+        background: var(--accent-gradient);
+        padding: 6rem 0 4rem;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        opacity: 0.3;
+    }
+
+    .contact-hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+    }
+
+    .contact-hero h1 {
+        font-size: 3.5rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .contact-hero p {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .contact-content {
+        padding: 6rem 0;
+        background: var(--bg-light);
+    }
+
+    .contact-card {
+        background: var(--white);
+        border-radius: 25px;
+        padding: 3.5rem 2.5rem;
+        box-shadow: var(--shadow-lg);
+        border: none;
+        height: 100%;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: var(--accent-gradient);
+    }
+
+    .contact-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .contact-info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        padding: 2rem;
+        background: var(--bg-light);
+        border-radius: 20px;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact-info-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.05), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .contact-info-item:hover::before {
+        left: 100%;
+    }
+
+    .contact-info-item:hover {
+        background: var(--white);
+        box-shadow: var(--shadow-md);
+        transform: translateX(15px);
+    }
+
+    .contact-icon {
+        width: 70px;
+        height: 70px;
+        background: var(--accent-gradient);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 2rem;
+        color: white;
+        font-size: 1.8rem;
+        flex-shrink: 0;
+        transition: all 0.4s ease;
+    }
+
+    .contact-info-item:hover .contact-icon {
+        transform: scale(1.1) rotate(10deg);
+    }
+
+    .contact-info-content h5 {
+        color: var(--text-dark);
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        font-size: 1.2rem;
+    }
+
+    .contact-info-content p {
+        color: var(--text-light);
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .map-container {
+        border-radius: 25px;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        height: 450px;
+        position: relative;
+        transition: all 0.4s ease;
+    }
+
+    .map-container:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .section-title {
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--text-dark);
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 0;
+        width: 80px;
+        height: 5px;
+        background: var(--accent-gradient);
+        border-radius: 3px;
+    }
+
+    .contact-cta {
+        background: var(--blue-gradient);
+        padding: 5rem 0;
+        text-align: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact-cta::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .btn-contact {
+        background: var(--white);
+        color: var(--primary-blue);
+        border: none;
+        padding: 1.25rem 3rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 50px;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-xl);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-contact::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--orange-gradient);
+        transition: left 0.5s;
+    }
+
+    .btn-contact:hover::before {
+        left: 0;
+    }
+
+    .btn-contact:hover {
+        transform: translateY(-3px);
+        color: white;
+    }
+
+    .btn-contact span {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Responsive Design */
+    
+</style>
+
+<!-- Hero Section -->
+<section class="contact-hero">
+    <div class="container">
+        <div class="contact-hero-content">
+            <h1>İletişime Geçin</h1>
+            <p>
+                Sorularınız, önerileriniz veya demo talepleriniz için bizimle iletişime geçmekten çekinmeyin.
+                Uzman ekibimiz size yardımcı olmak için burada. 7/24 destek hizmeti sunuyoruz.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Content -->
+<section class="contact-content">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <div class="contact-card">
+                    <h2 class="section-title">İletişim Bilgileri</h2>
+                    <p class="text-muted mb-4" style="font-size: 1.1rem; line-height: 1.7;">
+                        Size en iyi hizmeti verebilmek için 7/24 ulaşılabilir durumdayız.
+                        Tüm sorularınız için yanınızdayız.
+                    </p>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <div class="contact-info-content">
+                            <h5>Merkez Ofisimiz</h5>
+                            <p>Esentepe Mah. Yazılım Sk. No: 5<br>Şişli / İstanbul<br>Türkiye</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="bi bi-telephone"></i>
+                        </div>
+                        <div class="contact-info-content">
+                            <h5>Telefon Desteği</h5>
+                            <p>(0212) 123 45 67<br>Hafta içi 09:00 - 18:00<br>Acil durumlarda 7/24</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <div class="contact-info-content">
+                            <h5>E-posta Desteği</h5>
+                            <p>info@teknikservispro.com<br>destek@teknikservispro.com<br>24 saat içinde yanıt garantisi</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="bi bi-clock"></i>
+                        </div>
+                        <div class="contact-info-content">
+                            <h5>Çalışma Saatleri</h5>
+                            <p>Pazartesi - Cuma: 09:00 - 18:00<br>Cumartesi: 10:00 - 16:00<br>Pazar: Acil destek</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3018.654560239678!2d31.17270231218156!3d40.83555067125586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x409d75e697cd0b9d%3A0xab59083122146a0a!2sTeknikServis%20Pro%20Operasyon%20Merkezi!5e0!3m2!1str!2str!4v1750409828252!5m2!1str!2str" 
+                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="contact-cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="mb-4" style="font-size: 2.5rem; font-weight: 800;">Demo Talebinde Bulunun</h2>
+            <p class="mb-4" style="font-size: 1.2rem; opacity: 0.95; max-width: 600px; margin: 0 auto 2rem;">
+                Sistemimizi ücretsiz deneyimlemek ve tüm özelliklerini keşfetmek için demo talebinde bulunun.
+                Uzman ekibimiz size özel sunum hazırlayacak.
+            </p>
+            <a href="/Request/Create" class="btn-contact">
+                <span>
+                    <i class="bi bi-rocket-takeoff me-2"></i>
+                    Demo Talep Et
+                </span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Animate contact info items on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Apply animation to contact info items
+    document.querySelectorAll('.contact-info-item').forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(30px)';
+        item.style.transition = `all 0.6s ease ${index * 0.1}s`;
+        observer.observe(item);
+    });
+</script>

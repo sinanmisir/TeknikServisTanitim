@@ -1,0 +1,435 @@
+﻿@model TeknikServisTanitim.DAL.DemoRequest
+
+@{
+    ViewData["Title"] = "Demo Talep Et - TeknikServis Pro";
+}
+
+<style>
+    .request-hero {
+        background: var(--accent-gradient);
+        padding: 5rem 0 3rem;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .request-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        opacity: 0.3;
+    }
+
+    .request-hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+    }
+
+    .request-hero h1 {
+        font-size: 3rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .request-hero p {
+        font-size: 1.2rem;
+        opacity: 0.95;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .request-content {
+        padding: 5rem 0;
+        background: var(--bg-light);
+        min-height: 70vh;
+    }
+
+    .request-form-card {
+        background: var(--white);
+        border-radius: 25px;
+        padding: 3.5rem;
+        box-shadow: var(--shadow-lg);
+        border: none;
+        position: relative;
+        overflow: hidden;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .request-form-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: var(--accent-gradient);
+    }
+
+    .form-group {
+        margin-bottom: 2rem;
+    }
+
+    .form-group label {
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 0.75rem;
+        display: block;
+        font-size: 1rem;
+    }
+
+    .form-control {
+        border: 2px solid #e5e7eb;
+        border-radius: 15px;
+        padding: 1rem 1.25rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #f9fafb;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-orange);
+        box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        background: var(--white);
+        outline: none;
+    }
+
+    .form-control:hover {
+        border-color: var(--primary-blue);
+        background: var(--white);
+    }
+
+    textarea.form-control {
+        min-height: 140px;
+        resize: vertical;
+    }
+
+    .btn-submit {
+        background: var(--accent-gradient);
+        border: none;
+        padding: 1.25rem 3rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 50px;
+        color: white;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-md);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-submit::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .btn-submit:hover::before {
+        left: 100%;
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .form-icon {
+        width: 70px;
+        height: 70px;
+        background: var(--accent-gradient);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2rem;
+        color: white;
+        font-size: 2rem;
+        animation: pulse 2s infinite;
+    }
+
+    
+
+    .benefits-section {
+        background: var(--white);
+        padding: 3rem 0;
+        border-radius: 25px;
+        box-shadow: var(--shadow-md);
+        position: sticky;
+        top: 100px;
+    }
+
+    .benefit-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: var(--bg-light);
+        border-radius: 15px;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .benefit-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.05), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .benefit-item:hover::before {
+        left: 100%;
+    }
+
+    .benefit-item:hover {
+        background: var(--white);
+        box-shadow: var(--shadow-md);
+        transform: translateX(10px);
+    }
+
+    .benefit-icon {
+        width: 50px;
+        height: 50px;
+        background: var(--accent-gradient);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.5rem;
+        color: white;
+        font-size: 1.3rem;
+        flex-shrink: 0;
+        transition: all 0.4s ease;
+    }
+
+    .benefit-item:hover .benefit-icon {
+        transform: scale(1.1) rotate(10deg);
+    }
+
+    .benefit-text {
+        color: var(--text-dark);
+        font-weight: 600;
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    .form-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--text-dark);
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .form-subtitle {
+        text-align: center;
+        color: var(--text-light);
+        margin-bottom: 3rem;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .benefits-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--text-dark);
+        margin-bottom: 2rem;
+        position: relative;
+        display: inline-block;
+    }
+
+    .benefits-title::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: var(--accent-gradient);
+        border-radius: 2px;
+    }
+
+    /* Responsive Design */
+   
+</style>
+
+<!-- Hero Section -->
+<section class="request-hero">
+    <div class="container">
+        <div class="request-hero-content">
+            <h1>Demo Talep Et</h1>
+            <p>
+                Teknik servis yazılımımızı ücretsiz deneyimleyin. 
+                Uzman ekibimiz size özel demo sunumu hazırlayacak ve tüm sorularınızı yanıtlayacak.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Request Content -->
+<section class="request-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="request-form-card">
+                    <div class="form-icon">
+                        <i class="bi bi-rocket-takeoff"></i>
+                    </div>
+
+                    <h3 class="form-title">Hemen Başlayalım</h3>
+                    <p class="form-subtitle">
+                        Formu doldurarak ücretsiz demo talebinizi oluşturun. 
+                        24 saat içinde uzman ekibimizden dönüş alacaksınız.
+                    </p>
+
+                    <form asp-action="Create" method="post">
+                        <div class="form-group">
+                            <label for="AdSoyad">
+                                <i class="bi bi-person me-2" style="color: var(--primary-orange);"></i>Ad Soyad
+                            </label>
+                            <input asp-for="AdSoyad" class="form-control" placeholder="Adınız ve soyadınız" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Eposta">
+                                <i class="bi bi-envelope me-2" style="color: var(--primary-orange);"></i>E-posta Adresi
+                            </label>
+                            <input asp-for="Eposta" type="email" class="form-control" placeholder="ornek@email.com" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Telefon">
+                                <i class="bi bi-telephone me-2" style="color: var(--primary-orange);"></i>Telefon Numarası
+                            </label>
+                            <input asp-for="Telefon" class="form-control" placeholder="0555 123 45 67" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="FirmaAdi">
+                                <i class="bi bi-building me-2" style="color: var(--primary-orange);"></i>Firma Adı
+                            </label>
+                            <input asp-for="FirmaAdi" class="form-control" placeholder="Şirket adınız (opsiyonel)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="TalepMesaji">
+                                <i class="bi bi-chat-text me-2" style="color: var(--primary-orange);"></i>Mesajınız
+                            </label>
+                            <textarea asp-for="TalepMesaji" class="form-control" 
+                                      placeholder="Özel ihtiyaçlarınız, sorularınız veya demo hakkında bilmek istediklerinizi buraya yazabilirsiniz..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">
+                            <i class="bi bi-send me-2"></i>
+                            Demo Talebimi Gönder
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="benefits-section">
+                    <h4 class="benefits-title">
+                        Demo ile Neler Kazanırsınız?
+                    </h4>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="bi bi-check"></i>
+                        </div>
+                        <p class="benefit-text">Ücretsiz 30 dakikalık canlı demo</p>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="bi bi-check"></i>
+                        </div>
+                        <p class="benefit-text">Kişiselleştirilmiş çözüm önerileri</p>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="bi bi-check"></i>
+                        </div>
+                        <p class="benefit-text">Tüm özelliklerin detaylı tanıtımı</p>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="bi bi-check"></i>
+                        </div>
+                        <p class="benefit-text">Sorularınıza uzman yanıtları</p>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="bi bi-check"></i>
+                        </div>
+                        <p class="benefit-text">Özel fiyat teklifimiz</p>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="bi bi-check"></i>
+                        </div>
+                        <p class="benefit-text">Ücretsiz kurulum desteği</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Form validation and enhancement
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const submitBtn = document.querySelector('.btn-submit');
+
+        // Add loading state to submit button
+        form.addEventListener('submit', function() {
+            submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Gönderiliyor...';
+            submitBtn.disabled = true;
+        });
+
+        // Animate benefit items on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.benefit-item').forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(item);
+        });
+    });
+</script>

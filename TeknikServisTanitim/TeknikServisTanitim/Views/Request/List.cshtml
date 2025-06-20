@@ -1,0 +1,475 @@
+﻿@model List<TeknikServisTanitim.DAL.DemoRequest>
+
+@{
+    ViewData["Title"] = "Demo Talepleri Yönetimi";
+}
+
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --secondary-color: #1e40af;
+        --accent-color: #3b82f6;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --info-color: #06b6d4;
+        --text-dark: #1f2937;
+        --text-light: #6b7280;
+        --bg-light: #f8fafc;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    }
+
+    .admin-header {
+        background: linear-gradient(135deg, var(--text-dark) 0%, #374151 100%);
+        padding: 2rem 0;
+        color: white;
+        margin-bottom: 2rem;
+    }
+
+    .admin-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .admin-subtitle {
+        opacity: 0.8;
+        font-size: 1rem;
+    }
+
+    .stats-container {
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: var(--shadow-md);
+        border: none;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+    }
+
+    .stat-card.warning::before {
+        background: linear-gradient(45deg, var(--warning-color), #d97706);
+    }
+
+    .stat-card.info::before {
+        background: linear-gradient(45deg, var(--info-color), #0891b2);
+    }
+
+    .stat-card.success::before {
+        background: linear-gradient(45deg, var(--success-color), #059669);
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .stat-card.warning .stat-number {
+        color: var(--warning-color);
+    }
+
+    .stat-card.info .stat-number {
+        color: var(--info-color);
+    }
+
+    .stat-card.success .stat-number {
+        color: var(--success-color);
+    }
+
+    .stat-label {
+        color: var(--text-dark);
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    .search-container {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: var(--shadow-md);
+        margin-bottom: 2rem;
+    }
+
+    .search-input {
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #f9fafb;
+    }
+
+    .search-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        background: white;
+        outline: none;
+    }
+
+    .btn-search {
+        background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 12px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-search:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .table-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+    }
+
+    .table {
+        margin: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table thead th {
+        background: linear-gradient(135deg, var(--text-dark) 0%, #374151 100%);
+        color: white;
+        font-weight: 600;
+        padding: 1rem;
+        border: none;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .table tbody td {
+        padding: 1rem;
+        border-bottom: 1px solid #f3f4f6;
+        vertical-align: middle;
+        font-size: 0.9rem;
+    }
+
+    .table tbody tr:hover {
+        background: var(--bg-light);
+    }
+
+    .table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .status-select {
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        padding: 0.5rem;
+        font-size: 0.85rem;
+        min-width: 120px;
+    }
+
+    .btn-update {
+        background: linear-gradient(45deg, var(--success-color), #059669);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        color: white;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-update:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .btn-delete {
+        background: linear-gradient(45deg, var(--danger-color), #dc2626);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        color: white;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-delete:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .pagination-container {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: var(--shadow-md);
+        margin-top: 2rem;
+    }
+
+    .pagination {
+        margin: 0;
+        justify-content: center;
+    }
+
+    .page-link {
+        border: none;
+        padding: 0.75rem 1rem;
+        margin: 0 0.25rem;
+        border-radius: 8px;
+        color: var(--text-dark);
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .page-link:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .page-item.active .page-link {
+        background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+        color: white;
+        box-shadow: var(--shadow-md);
+    }
+
+    .message-cell {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .date-cell {
+        font-size: 0.85rem;
+        color: var(--text-light);
+    }
+
+    
+</style>
+
+<!-- Admin Header -->
+<section class="admin-header">
+    <div class="container">
+        <h1 class="admin-title">Demo Talepleri Yönetimi</h1>
+        <p class="admin-subtitle">Gelen demo taleplerini görüntüleyin ve yönetin</p>
+    </div>
+</section>
+
+<div class="container">
+    <!-- İstatistik Kutuları -->
+    <div class="stats-container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="stat-card warning">
+                    <span class="stat-number">@ViewBag.YeniSayisi</span>
+                    <span class="stat-label">Yeni Talepler</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card info">
+                    <span class="stat-number">@ViewBag.OkunduSayisi</span>
+                    <span class="stat-label">İncelenen Talepler</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card success">
+                    <span class="stat-number">@ViewBag.TamamlandiSayisi</span>
+                    <span class="stat-label">Tamamlanan Talepler</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Arama Formu -->
+    <div class="search-container">
+        <form method="get">
+            <div class="input-group">
+                <input type="text" name="search" value="@ViewBag.Search"
+                       class="form-control search-input"
+                       placeholder="Ad Soyad, E-posta veya Firma adı ile arama yapın..." />
+                <button type="submit" class="btn btn-search">
+                    <i class="bi bi-search me-2"></i>Ara
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tablo -->
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><i class="bi bi-person me-2"></i>Ad Soyad</th>
+                    <th><i class="bi bi-envelope me-2"></i>E-posta</th>
+                    <th><i class="bi bi-telephone me-2"></i>Telefon</th>
+                    <th><i class="bi bi-building me-2"></i>Firma</th>
+                    <th><i class="bi bi-chat-text me-2"></i>Mesaj</th>
+                    <th><i class="bi bi-calendar me-2"></i>Tarih</th>
+                    <th><i class="bi bi-flag me-2"></i>Durum</th>
+                    <th><i class="bi bi-gear me-2"></i>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <strong>@item.AdSoyad</strong>
+                        </td>
+                        <td>
+                            <a href="mailto:@item.Eposta" class="text-decoration-none">
+                                @item.Eposta
+                            </a>
+                        </td>
+                        <td>
+                            <a href="tel:@item.Telefon" class="text-decoration-none">
+                                @item.Telefon
+                            </a>
+                        </td>
+                        <td>@item.FirmaAdi</td>
+                        <td class="message-cell" title="@item.TalepMesaji">
+                            @item.TalepMesaji
+                        </td>
+                        <td class="date-cell">
+                            @item.Tarih?.ToString("dd.MM.yyyy")<br>
+                            <small>@item.Tarih?.ToString("HH:mm")</small>
+                        </td>
+                        <td>
+                            <form asp-action="ChangeStatus" method="post" class="d-flex gap-2 align-items-center">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <select name="newStatus" class="form-select status-select">
+                                    @if (item.Durum == "Yeni")
+                                    {
+                                        <option selected>Yeni</option>
+                                    }
+                                    else
+                                    {
+                                        <option>Yeni</option>
+                                    }
+
+                                    @if (item.Durum == "Okundu")
+                                    {
+                                        <option selected>Okundu</option>
+                                    }
+                                    else
+                                    {
+                                        <option>Okundu</option>
+                                    }
+
+                                    @if (item.Durum == "Tamamlandı")
+                                    {
+                                        <option selected>Tamamlandı</option>
+                                    }
+                                    else
+                                    {
+                                        <option>Tamamlandı</option>
+                                    }
+                                </select>
+
+                                <button type="submit" class="btn btn-update">
+                                    <i class="bi bi-check-lg"></i>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-action="Delete" method="post"
+                                  onsubmit="return confirm('Bu talebi silmek istediğinize emin misiniz?');">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button type="submit" class="btn btn-delete">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Sayfalama -->
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div class="pagination-container">
+            <nav aria-label="Sayfalama">
+                <ul class="pagination">
+                    @if (ViewBag.CurrentPage > 1)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="?search=@ViewBag.Search&page=@(ViewBag.CurrentPage - 1)">
+                                <i class="bi bi-chevron-left"></i> Önceki
+                            </a>
+                        </li>
+                    }
+
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                            <a class="page-link" href="?search=@ViewBag.Search&page=@i">@i</a>
+                        </li>
+                    }
+
+                    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="?search=@ViewBag.Search&page=@(ViewBag.CurrentPage + 1)">
+                                Sonraki <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    }
+</div>
+
+<script>
+    // Auto-submit form when status changes
+    document.querySelectorAll('.status-select').forEach(select => {
+        select.addEventListener('change', function() {
+            // Optional: You can add auto-submit functionality here
+            // this.closest('form').submit();
+        });
+    });
+
+    // Add loading state to buttons
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function() {
+            const button = this.querySelector('button[type="submit"]');
+            if (button) {
+                button.disabled = true;
+                button.innerHTML = '<i class="bi bi-hourglass-split"></i>';
+                setTimeout(() => {
+                    button.disabled = false;
+                }, 2000);
+            }
+        });
+    });
+</script>

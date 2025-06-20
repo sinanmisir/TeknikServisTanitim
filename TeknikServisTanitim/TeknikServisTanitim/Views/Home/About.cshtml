@@ -1,0 +1,581 @@
+﻿@{
+    ViewData["Title"] = "Hakkımızda - TeknikServis Pro";
+}
+
+<style>
+    .about-hero {
+        background: var(--accent-gradient);
+        padding: 6rem 0 4rem;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .about-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        opacity: 0.3;
+    }
+
+    .about-hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+    }
+
+    .about-hero h1 {
+        font-size: 3.5rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .about-hero p {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .about-content {
+        padding: 6rem 0;
+        background: var(--bg-light);
+    }
+
+    .about-card {
+        background: var(--white);
+        border-radius: 25px;
+        padding: 3.5rem;
+        box-shadow: var(--shadow-lg);
+        border: none;
+        height: 100%;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .about-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: var(--accent-gradient);
+    }
+
+    .about-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .section-title {
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--text-dark);
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 0;
+        width: 80px;
+        height: 5px;
+        background: var(--accent-gradient);
+        border-radius: 3px;
+    }
+
+    .mission-vision-card {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-md);
+        transition: all 0.4s ease;
+        border-left: 5px solid var(--primary-orange);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .mission-vision-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.05), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .mission-vision-card:hover::before {
+        left: 100%;
+    }
+
+    .mission-vision-card:hover {
+        transform: translateX(15px);
+        box-shadow: var(--shadow-lg);
+        border-left-color: var(--primary-blue);
+    }
+
+    .mission-vision-card h3 {
+        color: var(--text-dark);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        font-size: 1.3rem;
+    }
+
+    .mission-vision-card h3 i {
+        margin-right: 1rem;
+        width: 50px;
+        height: 50px;
+        background: var(--accent-gradient);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.3rem;
+    }
+
+    .mission-vision-card p {
+        color: var(--text-light);
+        line-height: 1.8;
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    .about-image {
+        border-radius: 25px;
+        box-shadow: var(--shadow-lg);
+        transition: all 0.4s ease;
+        width: 100%;
+        height: auto;
+    }
+
+    .about-image:hover {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .values-section {
+        background: var(--white);
+        padding: 6rem 0;
+    }
+
+    .value-item {
+        text-align: center;
+        padding: 2.5rem 1.5rem;
+        transition: all 0.4s ease;
+        border-radius: 20px;
+    }
+
+    .value-item:hover {
+        transform: translateY(-15px);
+        background: var(--bg-light);
+    }
+
+    .value-icon {
+        width: 90px;
+        height: 90px;
+        margin: 0 auto 2rem;
+        background: var(--accent-gradient);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+        color: white;
+        transition: all 0.4s ease;
+    }
+
+    .value-item:hover .value-icon {
+        transform: scale(1.2) rotate(10deg);
+    }
+
+    .value-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+    }
+
+    .value-description {
+        color: var(--text-light);
+        line-height: 1.7;
+        font-size: 1rem;
+    }
+
+    .team-section {
+        background: var(--bg-light);
+        padding: 6rem 0;
+    }
+
+    .team-card {
+        background: var(--white);
+        border-radius: 25px;
+        padding: 2.5rem;
+        text-align: center;
+        box-shadow: var(--shadow-md);
+        transition: all 0.4s ease;
+        border: none;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .team-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: var(--accent-gradient);
+        transform: scaleX(0);
+        transition: transform 0.4s ease;
+    }
+
+    .team-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .team-card:hover {
+        transform: translateY(-15px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .team-avatar {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        margin: 0 auto 2rem;
+        background: var(--accent-gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: white;
+        font-weight: 800;
+        transition: all 0.4s ease;
+    }
+
+    .team-card:hover .team-avatar {
+        transform: scale(1.1);
+    }
+
+    .team-name {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 0.5rem;
+    }
+
+    .team-role {
+        color: var(--primary-orange);
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+    }
+
+    .team-description {
+        color: var(--text-light);
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .cta-section {
+        background: var(--blue-gradient);
+        padding: 5rem 0;
+        text-align: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .btn-cta {
+        background: var(--white);
+        color: var(--primary-blue);
+        border: none;
+        padding: 1.25rem 3rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 50px;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-xl);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-cta::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--orange-gradient);
+        transition: left 0.5s;
+    }
+
+    .btn-cta:hover::before {
+        left: 0;
+    }
+
+    .btn-cta:hover {
+        transform: translateY(-3px);
+        color: white;
+    }
+
+    .btn-cta span {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Responsive Design */
+    
+</style>
+
+<!-- Hero Section -->
+<section class="about-hero">
+    <div class="container">
+        <div class="about-hero-content">
+            <h1>Hakkımızda</h1>
+            <p>
+                TeknikServis Pro olarak, teknik servis süreçlerini dijitalleştiren
+                yenilikçi çözümler geliştiriyoruz. Modern teknoloji ile geleneksel hizmeti buluşturuyoruz.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- About Content -->
+<section class="about-content">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <div class="about-card">
+                    <h2 class="section-title">Hikayemiz</h2>
+                    <p class="text-muted mb-4" style="font-size: 1.1rem; line-height: 1.7;">
+                        2015 yılında kurulan TeknikServis Pro, küçük ve orta ölçekli işletmelerin
+                        teknik servis süreçlerini modernize etme vizyonuyla yola çıktı.
+                    </p>
+
+                    <div class="mission-vision-card">
+                        <h3>
+                            <i class="bi bi-target"></i>
+                            Misyonumuz
+                        </h3>
+                        <p>
+                            Küçük ve orta ölçekli işletmelerin teknik servis hizmetlerini daha verimli,
+                            izlenebilir ve kullanıcı dostu hale getirmek için yazılım çözümleri geliştiriyoruz.
+                            Her işletmenin ihtiyacına özel, ölçeklenebilir sistemler sunuyoruz.
+                        </p>
+                    </div>
+
+                    <div class="mission-vision-card">
+                        <h3>
+                            <i class="bi bi-eye"></i>
+                            Vizyonumuz
+                        </h3>
+                        <p>
+                            Türkiye'nin en güvenilir ve yenilikçi teknik servis yazılımı sağlayıcısı olmak.
+                            Her ölçekte işletmeye modern, güvenli ve erişilebilir sistemler sunarak
+                            dijital dönüşümün öncüsü olmak.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600"
+                     class="about-image"
+                     alt="TeknikServis Pro Ekibi" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="values-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Değerlerimiz</h2>
+            <p class="lead text-muted mt-4" style="font-size: 1.2rem;">Çalışma prensiplerimiz ve değerlerimiz</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h5 class="value-title">Güvenilirlik</h5>
+                    <p class="value-description">
+                        Müşterilerimizin verilerini en üst düzeyde güvenlik ile koruyoruz.
+                        ISO 27001 standartlarında veri güvenliği sağlıyoruz.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="bi bi-lightbulb"></i>
+                    </div>
+                    <h5 class="value-title">İnovasyon</h5>
+                    <p class="value-description">
+                        Sürekli gelişim ve yenilikçi çözümler üretmeye odaklanıyoruz.
+                        Teknolojinin gücünü işletmelerin hizmetine sunuyoruz.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h5 class="value-title">Müşteri Odaklılık</h5>
+                    <p class="value-description">
+                        Müşteri memnuniyeti bizim için en önemli önceliktir.
+                        7/24 destek hizmeti ile yanınızdayız.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="bi bi-award"></i>
+                    </div>
+                    <h5 class="value-title">Kalite</h5>
+                    <p class="value-description">
+                        Her projede en yüksek kalite standartlarını uyguluyoruz.
+                        Sürekli iyileştirme ile mükemmelliği hedefliyoruz.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Ekibimiz</h2>
+            <p class="lead text-muted mt-4" style="font-size: 1.2rem;">Uzman ve deneyimli ekibimizle hizmetinizdeyiz</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="team-card">
+                    <div class="team-avatar">AY</div>
+                    <h5 class="team-name">Ahmet Yılmaz</h5>
+                    <p class="team-role">Kurucu & CEO</p>
+                    <p class="team-description">
+                        15 yıllık yazılım geliştirme deneyimi ile şirketimizi yönetiyor.
+                        Teknoloji ve iş dünyasını birleştiren vizyoner liderimiz.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="team-card">
+                    <div class="team-avatar">MK</div>
+                    <h5 class="team-name">Mehmet Kaya</h5>
+                    <p class="team-role">CTO</p>
+                    <p class="team-description">
+                        Teknik ekibimizi yöneten ve ürün geliştirme süreçlerini koordine eden uzmanımız.
+                        Modern teknolojilerin ustası.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="team-card">
+                    <div class="team-avatar">EÖ</div>
+                    <h5 class="team-name">Elif Özkan</h5>
+                    <p class="team-role">Müşteri İlişkileri</p>
+                    <p class="team-description">
+                        Müşteri memnuniyeti ve destek hizmetlerinden sorumlu ekip liderimiz.
+                        Her zaman çözüm odaklı yaklaşımıyla yanınızda.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="mb-4" style="font-size: 2.5rem; font-weight: 800;">Bizimle Çalışmaya Başlayın</h2>
+            <p class="mb-4" style="font-size: 1.2rem; opacity: 0.95; max-width: 600px; margin: 0 auto 2rem;">
+                Teknik servis işletmenizi dijital çağa taşımak için bugün demo talebinde bulunun.
+                Uzman ekibimiz size özel çözümler sunacak.
+            </p>
+            <a href="/Request/Create" class="btn-cta">
+                <span>
+                    <i class="bi bi-rocket-takeoff me-2"></i>
+                    Demo Talep Et
+                </span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Animate elements on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Apply animation to various elements
+    document.querySelectorAll('.mission-vision-card, .value-item, .team-card').forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(30px)';
+        item.style.transition = `all 0.6s ease ${index * 0.1}s`;
+        observer.observe(item);
+    });
+</script>

@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TeknikServisTanitim</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TeknikServisTanitim.styles.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-orange: #ff6b35;
+            --secondary-orange: #ff8c42;
+            --light-orange: #ffb380;
+            --dark-orange: #e55a2b;
+
+            --primary-blue: #1e40af;
+            --secondary-blue: #3b82f6;
+            --light-blue: #60a5fa;
+            --dark-blue: #1e3a8a;
+
+            --accent-gradient: linear-gradient(135deg, #ff6b35 0%, #1e40af 100%);
+            --orange-gradient: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+            --blue-gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: var(--white) !important;
+            box-shadow: var(--shadow-md);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none !important;
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            color: var(--text-dark) !important;
+            padding: 0.75rem 1.25rem !important;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar-nav .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .navbar-nav .nav-link:hover::before {
+            left: 0;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--white) !important;
+            transform: translateY(-2px);
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2831, 64, 175, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .container {
+            max-width: 1200px;
+        }
+
+        main {
+            min-height: calc(100vh - 200px);
+        }
+
+        .footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-top: none;
+        }
+
+        .footer a {
+            color: var(--light-orange);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--primary-orange);
+            text-decoration: underline;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gradient);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--orange-gradient);
+        }
+
+        /* Loading Animation */
+        
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Responsive Design */
+        
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-gear-fill me-2"></i>TeknikServis Pro
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house me-1"></i>Ana Sayfa
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="About">
+                                <i class="bi bi-info-circle me-1"></i>Hakkımızda
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Contact">
+                                <i class="bi bi-envelope me-1"></i>İletişim
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Request" asp-action="Create" style="background: var(--orange-gradient); color: white !important; font-weight: 600;">
+                                <i class="bi bi-rocket-takeoff me-1"></i>Demo Al
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div style="padding-top: 80px;">
+        <main role="main" class="fade-in-up">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-gear-fill me-2" style="color: var(--primary-orange); font-size: 1.5rem;"></i>
+                        <span style="font-weight: 700; font-size: 1.25rem;">TeknikServis Pro</span>
+                    </div>
+                    <p class="mb-0" style="color: var(--text-light);">
+                        Modern teknik servis yönetim çözümleri ile işletmenizi dijital çağa taşıyın.
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-2">
+                        &copy; 2025 - TeknikServis Pro - Tüm hakları saklıdır.
+                    </p>
+                    <div>
+                        <a asp-area="" asp-controller="Home" asp-action="Privacy" class="me-3">Gizlilik Politikası</a>
+                        <a href="/Admin/Login">Admin Girişi</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.backdropFilter = 'blur(10px)';
+            } else {
+                navbar.style.background = 'var(--white)';
+                navbar.style.backdropFilter = 'none';
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

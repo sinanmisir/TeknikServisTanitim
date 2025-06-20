@@ -1,0 +1,271 @@
+﻿@{
+    ViewData["Title"] = "Admin Giriş - TeknikServis Pro";
+}
+
+<style>
+    .login-section {
+        background: var(--accent-gradient);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .login-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        opacity: 0.3;
+    }
+
+    .login-card {
+        background: var(--white);
+        border-radius: 25px;
+        padding: 3.5rem;
+        box-shadow: var(--shadow-xl);
+        border: none;
+        position: relative;
+        z-index: 2;
+        max-width: 500px;
+        width: 100%;
+        margin: 0 auto;
+        animation: slideInUp 0.8s ease-out;
+    }
+
+    .login-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: var(--accent-gradient);
+        border-radius: 25px 25px 0 0;
+    }
+
+    
+
+    .login-icon {
+        width: 90px;
+        height: 90px;
+        background: var(--accent-gradient);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2.5rem;
+        color: white;
+        font-size: 2.5rem;
+        box-shadow: var(--shadow-lg);
+        animation: bounceIn 1s ease-out 0.3s both;
+    }
+
+    
+
+    .login-title {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: var(--text-dark);
+        text-align: center;
+        margin-bottom: 0.75rem;
+        animation: fadeInUp 0.8s ease-out 0.5s both;
+    }
+
+    .login-subtitle {
+        color: var(--text-light);
+        text-align: center;
+        margin-bottom: 2.5rem;
+        font-size: 1rem;
+        animation: fadeInUp 0.8s ease-out 0.7s both;
+        line-height: 1.5;
+    }
+
+    .form-group {
+        margin-bottom: 2rem;
+        animation: fadeInUp 0.8s ease-out 0.9s both;
+    }
+
+    .form-group label {
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 0.75rem;
+        display: block;
+        font-size: 1rem;
+    }
+
+    .form-control {
+        border: 2px solid #e5e7eb;
+        border-radius: 15px;
+        padding: 1rem 1.25rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #f9fafb;
+        position: relative;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-orange);
+        box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        background: var(--white);
+        outline: none;
+    }
+
+    .form-control:hover {
+        border-color: var(--primary-blue);
+        background: var(--white);
+    }
+
+    .input-group {
+        position: relative;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 1.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-light);
+        z-index: 3;
+        font-size: 1.1rem;
+    }
+
+    .form-control.with-icon {
+        padding-left: 3.5rem;
+    }
+
+    .btn-login {
+        background: var(--accent-gradient);
+        border: none;
+        padding: 1.25rem 2.5rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 50px;
+        color: white;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-md);
+        position: relative;
+        overflow: hidden;
+        animation: fadeInUp 0.8s ease-out 1.1s both;
+    }
+
+    .btn-login::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .btn-login:hover::before {
+        left: 100%;
+    }
+
+    .btn-login:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .error-alert {
+        background: linear-gradient(45deg, #ef4444, #dc2626);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        padding: 1.25rem;
+        margin-top: 1.5rem;
+        font-size: 1rem;
+        animation: shake 0.5s ease-in-out;
+        box-shadow: var(--shadow-md);
+    }
+
+    
+    .back-link {
+        text-align: center;
+        margin-top: 2.5rem;
+        animation: fadeInUp 0.8s ease-out 1.3s both;
+    }
+
+    .back-link a {
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .back-link a:hover {
+        color: var(--primary-orange);
+        text-decoration: underline;
+    }
+
+    
+
+    /* Responsive Design */
+    
+</style>
+
+<section class="login-section">
+    <div class="container">
+        <div class="login-card">
+            <div class="login-icon">
+                <i class="bi bi-shield-lock"></i>
+            </div>
+            
+            <h2 class="login-title">Admin Giriş</h2>
+            <p class="login-subtitle">Yönetim paneline erişim için giriş yapın</p>
+            
+            <form method="post" asp-action="Login">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="bi bi-person me-2" style="color: var(--primary-orange);"></i>Kullanıcı Adı
+                    </label>
+                    <div class="input-group">
+                        <i class="bi bi-person input-icon"></i>
+                        <input name="username" class="form-control with-icon" 
+                               placeholder="Kullanıcı adınızı girin" required />
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">
+                        <i class="bi bi-lock me-2" style="color: var(--primary-orange);"></i>Şifre
+                    </label>
+                    <div class="input-group">
+                        <i class="bi bi-lock input-icon"></i>
+                        <input name="password" type="password" class="form-control with-icon" 
+                               placeholder="Şifrenizi girin" required />
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-login">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>
+                    Giriş Yap
+                </button>
+            </form>
+
+            @if (ViewBag.Hata != null)
+            {
+                <div class="error-alert">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    @ViewBag.Hata
+                </div>
+            }
+            
+            <div class="back-link">
+                <a href="/">
+                    <i class="bi bi-arrow-left me-1"></i>
+                    Ana sayfaya dön
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
