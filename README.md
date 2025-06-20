@@ -17,11 +17,6 @@ Bu proje, Bilsoft Yazılım tarafından geliştirilen Online Teknik Servis Progr
 
 ---
 
-## 📷 Ekran Görüntüleri
-
-> (İsteğe bağlı: Buraya `.jpg/.png` koyabilirsiniz)
-
----
 
 ## 🛠️ Kullanılan Teknolojiler
 
