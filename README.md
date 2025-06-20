@@ -33,4 +33,4 @@ Bu proje, Bilsoft Yazılım tarafından geliştirilen Online Teknik Servis Progr
 1. Bu repoyu klonlayın:
 
 ```bash
-git clone https://github.com/kullaniciadi/teknikservis-pro.git
+git clone https://github.com/sinanmisir/TeknikServisTanitim.git
